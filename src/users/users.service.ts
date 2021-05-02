@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UsersService {
 
-    constructor(@InjectRepository(User) private userRepository: Repository<User>) {
+    constructor(@InjectRepository(User) public userRepository: Repository<User>) {
 
     }
 
@@ -15,9 +15,9 @@ export class UsersService {
     }
 
 
-    async getOneById(id: number): Promise<User> {
+   public async getOneById(id: number): Promise<User> {
         var user;
-        user= await this.userRepository.findOneOrFail(id)
+        user = await this.userRepository.findOneOrFail(id)
         return user;
     }
 

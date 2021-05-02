@@ -4,8 +4,7 @@ import { AuthenticationController } from './authentication.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Token } from 'src/entity/token.entity';
 import { JwtModule } from '@nestjs/jwt';
-import { UsersModule } from 'src/users/users.module';
-import { UsersService } from 'src/users/users.service';
+
 
 
 @Module({
@@ -13,7 +12,7 @@ import { UsersService } from 'src/users/users.service';
   JwtModule.register({
     secret:"secret",
     signOptions:{
-      expiresIn:'60'
+      expiresIn:'1m'
     }
   })
   

@@ -108,6 +108,20 @@ export class AuthenticationService {
     }
 
 
+    async decodeAccessToken(token: string): Promise<any> {
+        try {
+            return this.jwt.verifyAsync(token)
+        } catch (e) {
+            if (e instanceof TokenExpiredError) {
+                throw new UnauthorizedException('Access token expired')
+            } else {
+                throw new UnauthorizedException('Access token malformed')
+            }
+        }
+    }
+
+
+
     async decodeRefreshToken(token: string): Promise<RefreshTokenPayload> {
         try {
             return this.jwt.verifyAsync(token)
@@ -119,6 +133,9 @@ export class AuthenticationService {
             }
         }
     }
+
+
+
 
 
 

@@ -1,8 +1,9 @@
 import { BadRequestException, Body, Controller, Post, Res } from '@nestjs/common';
+import { Token } from 'src/entity/token.entity';
 import { User } from 'src/entity/user.entity';
-import { UsersService } from 'src/users/users.service';
+ 
 import { AuthenticationService } from './authentication.service';
-import {Response} from 'express'
+ 
 
 export interface AuthenticationPayload {
     user: User
@@ -36,6 +37,17 @@ export class AuthenticationController {
           }
         }
 
+        @Post('/logout')
+        async logout(@Body('token') token:string){
+        const obj = await this.authenticationService.decodeAccessToken(token)
+
+        Token.updateRevoked(obj.sub)
+        console.log("access decoded obj is......",obj)    
+        return obj
+        }
+
+
+
 
         
   @Post('login')
@@ -57,7 +69,7 @@ export class AuthenticationController {
 
     console.log("acess token in login is.....",accesstoken)
 
-   const refreshtoken = await this.authenticationService.generateRefreshToken(user,70)
+   const refreshtoken = await this.authenticationService.generateRefreshToken(user,600)
     
    console.log("refresh token in login is............",refreshtoken)
 

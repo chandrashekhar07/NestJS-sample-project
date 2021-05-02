@@ -9,7 +9,7 @@ const config:TypeOrmModule = {
      "password": "admin",
      "database": "jwsAuthentication",
      "synchronize": true,
-     "logging": true,
+    //  "logging": true,
      "entities": ["dist/**/*.entity{.ts,.js}"],
 
     // "migrations": [
